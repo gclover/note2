@@ -1,0 +1,39 @@
+mvn repo config
+
+src :　http://www.sonatype.org/downloads/nexus-latest-bundle.tar.gz
+
+
+local repo
+mvn install:install-file -Dfile=<path-to-file> -DgroupId=<group-id> \
+    -DartifactId=<artifact-id> -Dversion=<version> -Dpackaging=<packaging>
+
+remote repo
+mvn deploy:deploy-file -DgroupId=<group-id> \
+  -DartifactId=<artifact-id> \
+  -Dversion=<version> \
+  -Dpackaging=<type-of-packaging> \
+  -Dfile=<path-to-file> \
+  -DrepositoryId=<id-to-map-on-server-section-of-settings.xml> \
+  -Durl=<url-of-the-repository-to-deploy>
+
+example configuration: 
+/opt/apache-maven-3.0.4/conf/settings.xml
+<servers>
+  <server>  
+    <id>releases</id>  
+    <username>admin</username>  
+    <password>admin123</password>  
+  </server>  
+ <server>  
+  <id>snapshots</id>  
+  <username>admin</username>  
+  <password>admin123</password>  
+  </server>  
+</servers>  
+
+allow redeploy (gui setting)
+mvn deploy:deploy-file -DgroupId=org.test -DartifactId=sample -Dversion=1.0.0 -Dpackaging=jar -Dfile=sample-1.0.0.jar -
+Durl=http://192.168.2.105:4041/nexus/content/repositories/releases -DrepositoryId=releases
+
+
+

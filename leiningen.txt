@@ -1,0 +1,5 @@
+
+
+download https://raw.github.com/technomancy/leiningen/stable/bin/lein
+run > lein self-install
+export LEIN_JAVA_CMD=$JAVA_HOME/bin/java
